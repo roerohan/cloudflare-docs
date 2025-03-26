@@ -95,7 +95,7 @@ sudo systemctl restart cloudflared.service
 Run the following command:
 
 ```sh
-docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token eyJhIjoiYTY3ZTE0ZGFhNWY4ZGNlZWI5MWZlNTQ0OWJhNDk2ZWIiLCJ0IjoiOGU2MTY3MWEtYjQ4ZS00OWI2LWI4OGUtZDNhOWU1NzQzYWIwIiwicyI6Ik5qUTFOR013TnpZdE5qVmxNUzAwWXprNExUZzJaVGd0TXpGalpERTBOelUxWkRBMSJ9
+docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token <token>
 ```
 
 This command creates a new container from the latest `cloudflared` image. You can now delete the old container.
