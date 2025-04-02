@@ -15,15 +15,16 @@ This tutorial explains how to conditionally enforce Turnstile based on the incom
 
 ## Overview
 
-Occasionally, you might have setups such as automation that cannot load or run the Turnstile challenge. This tutorial will demonstrate using [`HTMLRewriter`](/workers/runtime-apis/html-rewriter/) to conditionally handle the [client-side widget](/turnstile/get-started/client-side-rendering/) and [siteverify API](/turnstile/get-started/server-side-validation/) when specific criteria are met.
+You may have setups such as automation that cannot load or run the Turnstile challenge. Using [`HTMLRewriter`](/workers/runtime-apis/html-rewriter/), this tutorial will demonstrate how to conditionally handle the [client-side widget](/turnstile/get-started/client-side-rendering/) and [siteverify API](/turnstile/get-started/server-side-validation/) when specific criteria are met.
 
-Whilst this tutorial demonstrates removing the Turnstile client-side elements when criteria are met, you could instead conditionally insert them if you prefer.
-
+:::note
+While this tutorial removes Turnstile client-side elements when specific criteria are met, you could instead conditionally insert them.
+:::
 :::caution
 
 It is critical to make sure you are validating tokens with the siteverify API when your criteria for enforcing Turnstile are not met.
 
-It is not sufficient to just remove the client-side widget from the page, as an attacker could simply forge the request to your API.
+It is not sufficient to only remove the client-side widget from the page, as an attacker can forge the request to your API.
 
 :::
 
