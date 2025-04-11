@@ -27,11 +27,11 @@ Secure your organization with Cloudflare Zero Trust - a cloud security model tha
 
 </Description>
 
-<Plan type="all" href="https://www.cloudflare.com/plans/zero-trust-services/" />
+<Plan type="all" />
 
-Explore our [reference architecture](/reference-architecture/architectures/sase/) to learn how to evolve your network and security architecture to our SASE platform.
+Cloudflare offers network, security, and operational services, as well as policy engine features, to provide zero trust connectivity between a variety of user identities, devices and access locations to customer applications, infrastructure and networks.
 
-Cloudflare Zero Trust offers both [Free and Paid plans](https://www.cloudflare.com/plans/zero-trust-services/). Access to certain features depends on a customer's plan type.
+[![Cloudflare's SASE cloud platform offers network, security, and operational services, as well as policy engine features, to provide zero trust connectivity between a variety of user identities, devices and access locations to customer applications, infrastructure and networks.](~/assets/images/reference-architecture/cloudflare-one-reference-architecture-images/cf1-ref-arch-2.svg)](https://developers.cloudflare.com/reference-architecture/architectures/sase/)
 
 <LinkButton variant="primary" href="/cloudflare-one/setup/">
 	Get started
@@ -47,55 +47,63 @@ Cloudflare Zero Trust offers both [Free and Paid plans](https://www.cloudflare.c
 	Implementation guides
 </LinkButton>
 
-<Render file="non-contract-enablement" product="fundamentals" />
+## Features
+
+<Feature header="WARP" href="/cloudflare-one/connections/connect-devices/warp/" cta="Download WARP">
+
+Protect corporate devices by securely and privately routing traffic through Cloudflare’s global network while enforcing advanced web filtering and threat protection.
+
+</Feature>
+
+<Feature header="Cloudflare Tunnel" href="/cloudflare-one/connections/connect-networks/" cta="Create a tunnel">
+
+Securely connect your resources to Cloudflare without exposing a public IP by using Cloudflare Tunnel, which establishes outbound-only connections from your infrastructure to Cloudflare’s global network via the lightweight `cloudflared` daemon.
+
+</Feature>
+
+<Feature header="Digital Experience Monitoring (DEX)" href="/cloudflare-one/insights/dex/" cta="Troubleshoot with DEX">
+
+Gain visibility into device, network, and application performance across your Zero Trust organization.
+
+</Feature>
+
+---
 
 ## Related products
 
-<RelatedProduct header="Access" href="/cloudflare-one/policies/access/" product="access">
+<RelatedProduct header="Access (Zero Trust Network Access - ZTNA)" href="/cloudflare-one/policies/access/" product="access">
 
-Authenticate users on the Cloudflare global network, seamlessly onboard third-party users, and log every event and request.
-
-</RelatedProduct>
-
-<RelatedProduct header="Tunnel" href="/cloudflare-one/connections/connect-networks/" product="access">
-
-Description of product used together or connected configuration with current product.
+Authenticate users accessing your applications, seamlessly onboard third-party users, and log every event and request.
 
 </RelatedProduct>
 
-<RelatedProduct header="Gateway" href="/cloudflare-one/policies/gateway/" product="access">
+<RelatedProduct header="Secure Web Gateway (SWG)" href="/cloudflare-one/policies/gateway/" product="gateway">
 
-Description of product used together or connected configuration with current product.
-
-</RelatedProduct>
-
-<RelatedProduct header="Browser Isolation" href="/cloudflare-one/policies/browser-isolation/" product="access">
-
-Description of product used together or connected configuration with current product.
+Enforce your company's Acceptable Use Policy (UAP), block risky sites with custom blocklists and threat intelligence, and enhance visibility and protection across SaaS applications.
 
 </RelatedProduct>
 
-<RelatedProduct header="Cloud Access Security Broker (CASB)" href="/cloudflare-one/applications/casb/" product="access">
+<RelatedProduct header="Browser Isolation (RBI)" href="/cloudflare-one/policies/browser-isolation/" product="browser-isolation">
 
-Description of product used together or connected configuration with current product.
-
-</RelatedProduct>
-
-<RelatedProduct header="Data Loss Prevention (DLP)" href="/cloudflare-one/policies/data-loss-prevention/" product="access">
-
-Description of product used together or connected configuration with current product.
+Mitigate the impact of attacks by executing all browser code in the cloud, and deliver a seamless, lightning-fast end user experience.
 
 </RelatedProduct>
 
-<RelatedProduct header="Email Security" href="/cloudflare-one/email-security/" product="access">
+<RelatedProduct header="Cloud Access Security Broker (CASB)" href="/cloudflare-one/applications/casb/" product="casb">
 
-Description of product used together or connected configuration with current product.
+Protect users and sensitive data at rest in SaaS applications, fetect insider threats and unsanctioned application usage, also known as <GlossaryTooltip term="shadow IT" link="https://www.cloudflare.com/learning/access-management/what-is-shadow-it/">shadow IT</GlossaryTooltip>, and ensure best practices to prevent data leaks and compliance violations.
 
 </RelatedProduct>
 
-<RelatedProduct header="Digital Experience Monitoring (DEX)" href="/workers-ai/" product="access">
+<RelatedProduct header="Data Loss Prevention (DLP)" href="/cloudflare-one/policies/data-loss-prevention/" product="data-loss-prevention">
 
-Description of product used together or connected configuration with current product.
+Detect sensitive data as it moves to and from SaaS applications, use predefined DLP profiles to get started quickly, and log or block DLP matches.
+
+</RelatedProduct>
+
+<RelatedProduct header="Email Security" href="/cloudflare-one/email-security/" product="email-security">
+
+Configure policies to manage your inbox, automatically move emails based on disposition, and use screen criteria to investigate messages.
 
 </RelatedProduct>
 
@@ -103,39 +111,55 @@ Description of product used together or connected configuration with current pro
 
 ## More resources
 
+<CardGrid>
 
-**Zero Trust access for all of your applications.**
+<LinkTitleCard
+	title="Learning Paths"
+	href="/learning-paths/sase-overview-course/series/evolution-corporate-networks-1/"
+	icon="pen"
+>
+	New to Zero Trust and SASE? Get started with the SASE introductory learning path.
+</LinkTitleCard>
 
-- Authenticate users on our global network
-- Onboard third-party users seamlessly
-- Log every event and request
+<LinkTitleCard
+	title="Reference architecture"
+	href="/reference-architecture/architectures/sase/"
+	icon="open-book"
+>
+	Explore our reference architecture to learn how to evolve your network and security architecture to our SASE platform.
+</LinkTitleCard>
 
-**A Secure Web Gateway to protect users and devices.**
+<LinkTitleCard
+	title="Plans"
+	href="https://www.cloudflare.com/plans/zero-trust-services/"
+	icon="seti:shell"
+>
+	Cloudflare Zero Trust offers both Free and Paid plans. Access to certain features depends on a customer's plan type.
+</LinkTitleCard>
 
-- Enforce your company's Acceptable Use Policy (AUP)
-- Block risky sites with custom blocklists and built-in threat intel
-- Enhance visibility and protection into SaaS applications
+<LinkTitleCard title="Limits" href="/cloudflare-one/account-limits/" icon="document">
 
-**A fast and reliable solution for remote browsing.**
+	Learn about account limits. These limits may be increased on Enterprise accounts.
 
-- Execute all browser code in the cloud
-- Mitigate the impact of attacks
-- Seamless, lightning-fast end user experience
+</LinkTitleCard>
 
-**A Cloud Access Security Broker to safeguard data in the cloud.**
+<LinkTitleCard
+	title="Developer Discord"
+	href="https://discord.cloudflare.com"
+	icon="discord"
+>
+	Connect with Cloudflare developers on Discord to ask questions, and share what you
+	are building.
+</LinkTitleCard>
 
-- Protect users and sensitive data at rest in SaaS applications
-- Detect insider threats and unsanctioned application usage, also known as <GlossaryTooltip term="shadow IT" link="https://www.cloudflare.com/learning/access-management/what-is-shadow-it/">shadow IT</GlossaryTooltip>
-- Ensure best practices to prevent data leaks and compliance violations
+<LinkTitleCard
+	title="Community Support"
+	href="https://community.cloudflare.com/"
+	icon="laptop"
+>
+	Ask questions, get answers, and share tips.
+</LinkTitleCard>
 
-**A Data Loss Prevention solution to safeguard data in transit.**
+</CardGrid>
 
-- Detect sensitive data as it moves to and from SaaS applications
-- Predefined DLP Profiles to quickly get started
-- Log or block DLP matches
-
-**An Email Security solution to protect your email inbox.**
-
-- Configure policies to manage your inbox.
-- Automatically move emails based on a certain disposition.
-- Use screen criteria to investigate your email.
+<Render file="non-contract-enablement" product="fundamentals" />
