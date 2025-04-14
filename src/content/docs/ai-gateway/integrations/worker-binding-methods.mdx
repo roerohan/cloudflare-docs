@@ -25,6 +25,8 @@ binding = "AI"
 
 This configuration sets up the AI binding accessible in your Worker code as `env.AI`.
 
+<Render file="wrangler-typegen" />
+
 ## 2. Basic Usage with Workers AI + Gateway
 
 To perform an inference task using Workers AI and an AI Gateway, you can use the following code:
@@ -78,7 +80,7 @@ gateway.patchLog("my-log-id", {
 
 ### 3.2. `getLog`: Read Log Details
 
-The `getLog` method retrieves details of a specific log ID. It returns an object of type `Promise<AiGatewayLog>`. If this type is missing, ensure you have run [`wrangler types`](/workers/languages/typescript/#generate-types)
+The `getLog` method retrieves details of a specific log ID. It returns an object of type `Promise<AiGatewayLog>`. If this type is missing, ensure you have run [`wrangler types`](/workers/languages/typescript/#generate-types).
 
 ```typescript
 const log = await gateway.getLog("my-log-id");

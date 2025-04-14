@@ -103,16 +103,37 @@ This tutorial, however, will show you how to go a step further and add an API Wo
 
 ## Add an API Worker
 
+### Add to your Worker configuration
+
+<WranglerConfig>
+
+```toml
+name = "cloudflare-vite-tutorial"
+compatibility_date = "2025-04-03"
+assets = { not_found_handling = "single-page-application" }
+main = "./worker/index.ts"
+```
+
+</WranglerConfig>
+
+The `main` field specifies the entry file for your Worker code.
+
 ### Configure TypeScript for your Worker code
 
-<PackageManagers type="add" pkg="@cloudflare/workers-types" dev />
+<Render file="wrangler-typegen" />
+
+Then create a `tsconfig.worker.json` file in the root of your project with the following content:
 
 ```jsonc title="tsconfig.worker.json"
 {
 	"extends": "./tsconfig.node.json",
 	"compilerOptions": {
 		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.worker.tsbuildinfo",
-		"types": ["@cloudflare/workers-types/2023-07-01", "vite/client"],
+		"types": [
+			// output of `wrangler types`
+			"./worker-configuration.d.ts",
+			"vite/client",
+		],
 	},
 	"include": ["worker"],
 }
@@ -129,28 +150,9 @@ This tutorial, however, will show you how to go a step further and add an API Wo
 }
 ```
 
-### Add to your Worker configuration
-
-<WranglerConfig>
-
-```toml
-name = "cloudflare-vite-tutorial"
-compatibility_date = "2025-04-03"
-assets = { not_found_handling = "single-page-application" }
-main = "./worker/index.ts"
-```
-
-</WranglerConfig>
-
-The `main` field specifies the entry file for your Worker code.
-
 ### Add your API Worker
 
 ```ts title="worker/index.ts"
-interface Env {
-	ASSETS: Fetcher;
-}
-
 export default {
 	fetch(request, env) {
 		const url = new URL(request.url);

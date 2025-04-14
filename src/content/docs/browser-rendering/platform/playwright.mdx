@@ -42,6 +42,8 @@ binding = "MYBROWSER"
 
 </WranglerConfig>
 
+<Render file="wrangler-typegen" />
+
 Install the npm package:
 
 ```bash
@@ -55,12 +57,7 @@ Let's look at some examples of how to use Playwright:
 Using browser automation to take screenshots of web pages is a common use case. This script tells the browser to navigate to https://demo.playwright.dev/todomvc, create some items, take a screenshot of the page, and return the image in the response.
 
 ```ts
-import type { Fetcher } from '@cloudflare/workers-types';
 import { launch } from '@cloudflare/playwright';
-
-interface Env {
-  MYBROWSER: Fetcher;
-}
 
 export default {
   async fetch(request: Request, env: Env) {
@@ -103,13 +100,8 @@ A Playwright trace is a detailed log of your workflow execution that captures in
 Here's an example of a worker generating a trace file:
 
 ```ts
-import type { Fetcher } from '@cloudflare/workers-types';
 import { launch, fs } from "@cloudflare/playwright";
 import fs from '@cloudflare/playwright/fs';
-
-interface Env {
-  MYBROWSER: Fetcher;
-}
 
 export default {
   async fetch(request: Request, env: Env) {
@@ -172,13 +164,8 @@ export default {
 One of the most common use cases for using Playwright is software testing. Playwright includes test assertion features in its APIs; refer to [Assertions](https://playwright.dev/docs/test-assertions) in the Playwright documentation for details. Here's an example of a Worker doing `expect()` test assertions of the [todomvc](https://demo.playwright.dev/todomvc) demo page:
 
 ```ts
-import type { Fetcher } from '@cloudflare/workers-types';
 import { launch } from '@cloudflare/playwright';
 import { expect } from '@cloudflare/playwright/test';
-
-interface Env {
-  MYBROWSER: Fetcher;
-}
 
 export default {
   async fetch(request: Request, env: Env) {
