@@ -37,7 +37,7 @@ export default {
   async fetch(request) {
     // ...
 
-+    if (request.headers.get("x-bypass-turnstile") === "VerySecretValue")) {
++    if (request.headers.get("x-bypass-turnstile") === "VerySecretValue") {
 +      class RemoveHandler {
 +        element(element) {
 +          element.remove();
@@ -82,7 +82,7 @@ The same logic must be used in both the client-side and the server-side implemen
 
 ```diff lang="js" title="src/index.mjs"
 async function handlePost(request) {
-+  if (request.headers.get("x-bypass-turnstile") === "VerySecretValue")) {
++  if (request.headers.get("x-bypass-turnstile") === "VerySecretValue") {
 +    return new Response('Turnstile not enforced on this request')
 +  }
 	// Proceed with validation as normal!
@@ -94,10 +94,16 @@ async function handlePost(request) {
 }
 ```
 
-## Best practices
+With these changes, Turnstile will not be enforced on requests with the header `x-bypass-turnstile: VerySecretValue` present.
 
-TBD
+## Demonstration
 
-## Conclusion
+After running `npm run dev` in the project folder, you can test the changes by running the following command:
 
-TBD
+```sh
+curl -X POST http://localhost:8787/handler -H "x-bypass-turnstile: VerySecretValue"
+```
+
+```txt output
+Turnstile not enforced on this request
+```
