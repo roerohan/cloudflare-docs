@@ -8,9 +8,9 @@ import { Render, Steps } from "~/components";
 <Render file="keys" />
 <br />
 
-Rclone is a command-line tool which manages files on cloud storage. You can use Rclone to upload objects to R2 concurrently.
+Rclone is a command-line tool which manages files on cloud storage. You can use rclone to upload objects to R2 concurrently.
 
-## Configure Rclone
+## Configure rclone
 
 With [`rclone`](https://rclone.org/install/) installed, you may run [`rclone config`](https://rclone.org/s3/) to configure a new S3 storage provider. You will be prompted with a series of questions for the new provider details.
 
@@ -36,7 +36,7 @@ This will create a `rclone` configuration file, which you can then modify with t
 Ensure you are running `rclone` v1.59 or greater ([rclone downloads](https://beta.rclone.org/)). Versions prior to v1.59 may return `HTTP 401: Unauthorized` errors, as earlier versions of `rclone` do not strictly align to the S3 specification in all cases.
 :::
 
-### Edit an existing Rclone configuration
+### Edit an existing rclone configuration
 
 If you have already configured `rclone` in the past, you may run `rclone config file` to print the location of your `rclone` configuration file:
 
