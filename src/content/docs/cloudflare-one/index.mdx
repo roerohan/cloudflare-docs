@@ -29,9 +29,11 @@ Secure your organization with Cloudflare Zero Trust - a cloud security model tha
 
 <Plan type="all" />
 
-Cloudflare offers network, security, and operational services, as well as policy engine features, to provide zero trust connectivity between a variety of user identities, devices and access locations to customer applications, infrastructure and networks.
+**Cloudflare Zero Trust** is part of **Cloudflare One**, our name for the Secure Access Service Edge (SASE) platform that protects enterprise applications, users, devices, and networks.
 
-[![Cloudflare's SASE cloud platform offers network, security, and operational services, as well as policy engine features, to provide zero trust connectivity between a variety of user identities, devices and access locations to customer applications, infrastructure and networks.](~/assets/images/reference-architecture/cloudflare-one-reference-architecture-images/cf1-ref-arch-2.svg)](https://developers.cloudflare.com/reference-architecture/architectures/sase/)
+By progressively adopting Cloudflare One, organizations can move away from a patchwork of hardware appliances and point solutions, and instead consolidate security and networking through a unified control plane that includes products like **Cloudflare Zero Trust Network Access (ZTNA)**, **Secure Web Gateway (SWG)**, **Cloudflare Tunnel**, **Data Loss Prevention (DLP)**, **Remote Browser Isolation (RBI)**, **Cloud Access Security Broker (CASB)**, and **Email Security**.
+
+Refer to our [SASE reference architecture](/reference-architecture/architectures/sase/) to learn how to plan, deploy, and manage SASE architecture with Cloudflare.
 
 <LinkButton variant="primary" href="/cloudflare-one/setup/">
 	Get started
@@ -47,29 +49,7 @@ Cloudflare offers network, security, and operational services, as well as policy
 	Implementation guides
 </LinkButton>
 
-## Features
-
-<Feature header="WARP" href="/cloudflare-one/connections/connect-devices/warp/" cta="Download WARP">
-
-Protect corporate devices by securely and privately routing traffic through Cloudflare’s global network while enforcing advanced web filtering and threat protection.
-
-</Feature>
-
-<Feature header="Cloudflare Tunnel" href="/cloudflare-one/connections/connect-networks/" cta="Create a tunnel">
-
-Securely connect your resources to Cloudflare without exposing a public IP by using Cloudflare Tunnel, which establishes outbound-only connections from your infrastructure to Cloudflare’s global network via the lightweight `cloudflared` daemon.
-
-</Feature>
-
-<Feature header="Digital Experience Monitoring (DEX)" href="/cloudflare-one/insights/dex/" cta="Troubleshoot with DEX">
-
-Gain visibility into device, network, and application performance across your Zero Trust organization.
-
-</Feature>
-
----
-
-## Related products
+## Products
 
 <RelatedProduct header="Access (Zero Trust Network Access - ZTNA)" href="/cloudflare-one/policies/access/" product="access">
 
@@ -77,9 +57,21 @@ Authenticate users accessing your applications, seamlessly onboard third-party u
 
 </RelatedProduct>
 
+<RelatedProduct header="Cloudflare Tunnel" href="/cloudflare-one/connections/connect-networks/" product="zero-trust-networks">
+
+Securely connect your resources to Cloudflare without exposing a public IP by using Cloudflare Tunnel, which establishes outbound-only connections from your infrastructure to Cloudflare’s global network via the lightweight `cloudflared` daemon.
+
+</RelatedProduct>
+
 <RelatedProduct header="Secure Web Gateway (SWG)" href="/cloudflare-one/policies/gateway/" product="gateway">
 
-Enforce your company's Acceptable Use Policy (UAP), block risky sites with custom blocklists and threat intelligence, and enhance visibility and protection across SaaS applications.
+Inspect DNS, network, HTTP, and egress traffic to enforce your company's Acceptable Use Policy (UAP), block risky sites with custom blocklists and threat intelligence, and enhance visibility and protection across SaaS applications.
+
+</RelatedProduct>
+
+<RelatedProduct header="WARP" href="/cloudflare-one/connections/connect-devices/warp/" product="warp-client">
+
+Protect corporate devices by securely and privately routing traffic through Cloudflare’s global network while enforcing advanced web filtering and threat protection.
 
 </RelatedProduct>
 
@@ -104,6 +96,12 @@ Detect sensitive data as it moves to and from SaaS applications, use predefined 
 <RelatedProduct header="Email Security" href="/cloudflare-one/email-security/" product="email-security">
 
 Configure policies to manage your inbox, automatically move emails based on disposition, and use screen criteria to investigate messages.
+
+</RelatedProduct>
+
+<RelatedProduct header="Digital Experience Monitoring (DEX)" href="/cloudflare-one/insights/dex/" product="dex">
+
+Monitor device, network, and application performance across your Zero Trust organization.
 
 </RelatedProduct>
 
@@ -153,11 +151,11 @@ Configure policies to manage your inbox, automatically move emails based on disp
 </LinkTitleCard>
 
 <LinkTitleCard
-	title="Community Support"
-	href="https://community.cloudflare.com/"
+	title="Support"
+	href="/support/contacting-cloudflare-support/"
 	icon="laptop"
 >
-	Ask questions, get answers, and share tips.
+	Find answers to common questions or open a ticket with Cloudflare Support.
 </LinkTitleCard>
 
 </CardGrid>
