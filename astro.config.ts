@@ -1,6 +1,5 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
-import tailwind from "@astrojs/tailwind";
 import starlightDocSearch from "@astrojs/starlight-docsearch";
 import starlightImageZoom from "starlight-image-zoom";
 import liveCode from "astro-live-code";
@@ -17,6 +16,8 @@ import rehypeMermaid from "./src/plugins/rehype/mermaid.ts";
 import rehypeAutolinkHeadings from "./src/plugins/rehype/autolink-headings.ts";
 import rehypeExternalLinks from "./src/plugins/rehype/external-links.ts";
 import rehypeHeadingSlugs from "./src/plugins/rehype/heading-slugs.ts";
+
+import tailwindcss from "@tailwindcss/vite";
 
 async function autogenSections() {
 	const sections = (
@@ -90,11 +91,19 @@ export default defineConfig({
 				src: "./src/assets/logo.svg",
 			},
 			favicon: "/favicon.png",
-			social: {
-				github: "https://github.com/cloudflare/cloudflare-docs",
-				"x.com": "https://x.com/cloudflare",
-				youtube: "https://www.youtube.com/cloudflare",
-			},
+			social: [
+				{
+					label: "GitHub",
+					icon: "github",
+					href: "https://github.com/cloudflare/cloudflare-docs",
+				},
+				{ label: "X.com", icon: "x.com", href: "https://x.com/cloudflare" },
+				{
+					label: "YouTube",
+					icon: "youtube",
+					href: "https://www.youtube.com/cloudflare",
+				},
+			],
 			editLink: {
 				baseUrl:
 					"https://github.com/cloudflare/cloudflare-docs/edit/production/",
@@ -145,9 +154,6 @@ export default defineConfig({
 			],
 			lastUpdated: true,
 		}),
-		tailwind({
-			applyBaseStyles: false,
-		}),
 		liveCode({}),
 		icon(),
 		sitemap({
@@ -174,5 +180,7 @@ export default defineConfig({
 				),
 			},
 		},
+
+		plugins: [tailwindcss()],
 	},
 });

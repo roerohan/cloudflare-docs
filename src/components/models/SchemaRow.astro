@@ -12,22 +12,16 @@ const { node, root } = Astro.props;
 		node.title ? (
 			<span class="mr-2 font-bold">{node.title}</span>
 		) : (
-			<code class="mr-2 rounded-md bg-gray-100 !pr-0 font-mono">
+			<code class="mr-2 rounded-md font-mono">
 				{node.subpath[node.subpath.length - 1]}
 				{node.parent.fragment?.required?.includes(
 					node.subpath[node.subpath.length - 1],
-				) ? (
-					<span class="font-semibold text-red-500">*</span>
-				) : (
-					""
-				)}
+				) && <span class="font-semibold text-red-500">*</span>}
 			</code>
 		)
 	}
-
 	{node.primaryType && <Type text={node.primaryType} />}
 	{node.combiners && node.combiners.includes("oneOf") && <Type text="one of" />}
-
 	{
 		node.annotations.default && (
 			<MetaInfo text={`default ${node.annotations.default}`} />

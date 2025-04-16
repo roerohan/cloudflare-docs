@@ -13,7 +13,7 @@ const { id } = props.parse(Astro.props);
 ---
 
 <rule-id id={id}>
-	<button title="Click to copy the full ID" class="px-0">
+	<button title="Click to copy the full ID" class="border-0 px-0">
 		<code class="flex">
 			{`...${id.slice(-8)}`}
 		</code>

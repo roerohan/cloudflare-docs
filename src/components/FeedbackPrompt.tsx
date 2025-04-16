@@ -35,18 +35,18 @@ function Buttons({
 					setTitle("What did you like?");
 					setOption("yes");
 				}}
-				className="cursor-pointer bg-transparent"
+				className="cursor-pointer border-0 bg-transparent"
 			>
-				<MdOutlineThumbUp className="text-2xl text-sl hover:text-accent" />
+				<MdOutlineThumbUp className="text-sl hover:text-accent text-2xl" />
 			</button>
 			<button
 				onClick={() => {
 					setTitle("What went wrong?");
 					setOption("no");
 				}}
-				className="cursor-pointer bg-transparent"
+				className="cursor-pointer border-0 bg-transparent"
 			>
-				<MdOutlineThumbDown className="text-2xl text-sl hover:text-accent" />
+				<MdOutlineThumbDown className="text-sl hover:text-accent text-2xl" />
 			</button>
 		</>
 	);
