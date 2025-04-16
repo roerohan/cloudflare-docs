@@ -55,6 +55,13 @@ Choose one of the following options for your egress policy:
 
 Gateway matches egress traffic against the following selectors, or criteria:
 
+### Application
+
+<Render
+	file="gateway/selectors/application"
+	params={{ policyType: "egress" }}
+/>
+
 ### Destination Continent
 
 <Render
@@ -80,6 +87,14 @@ Gateway matches egress traffic against the following selectors, or criteria:
 ### Device Posture
 
 <Render file="gateway/selectors/device-posture" />
+
+### Domain
+
+<Render file="gateway/selectors/domain" />
+
+### Host
+
+<Render file="gateway/selectors/host" />
 
 ### Protocol
 
