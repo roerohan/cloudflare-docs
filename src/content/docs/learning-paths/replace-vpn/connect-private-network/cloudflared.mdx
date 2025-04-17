@@ -6,7 +6,7 @@ sidebar:
 
 ---
 
-import { Render } from "~/components"
+import { Render, Tabs, TabItem, Details } from "~/components"
 
 Cloudflare Tunnel is an outbound-only daemon service that can run on nearly any host machine and proxies local traffic once validated from the Cloudflare network. User traffic initiated from the WARP endpoint client onramps to Cloudflare, passes down your Cloudflare Tunnel connections, and terminates automatically in your local network. Traffic reaching your internal applications or services will carry the local source IP address of the host machine running the `cloudflared` daemon.
 
@@ -14,11 +14,104 @@ Cloudflare Tunnel is an outbound-only daemon service that can run on nearly any 
 
 To connect your private network:
 
+<Tabs syncKey="dashPlusAPI">
+
+<TabItem label="Dashboard">
+
 <Render file="tunnel/create-tunnel" product="cloudflare-one" />
 
 9. In the **Private Networks** tab, enter the CIDR of your private network (for example, `10.0.0.0/8`).
 
 10. Select **Save tunnel**.
+
+</TabItem>
+<TabItem label="Terraform (v5)">
+
+1. Add the following permission to your [`cloudflare_api_token`](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/api_token):
+	- `Cloudflare Tunnel Write`
+
+2. Generate a secret for the tunnel using Terraform's [`random` provider](https://registry.terraform.io/providers/hashicorp/random/latest/docs):
+
+		```tf
+		resource "random_bytes" "tunnel_secret" {
+  		length = 64
+		}
+		```
+
+3. Create a tunnel using the [`cloudflare_zero_trust_tunnel_cloudflare`](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/zero_trust_tunnel_cloudflared) resource.
+
+		```tf
+		resource "cloudflare_zero_trust_tunnel_cloudflared" "example_tunnel" {
+			account_id = var.cloudflare_account_id
+			name       = "Example tunnel"
+			tunnel_secret     = random_bytes.tunnel_secret.base64
+			config_src = "cloudflare"
+		}
+		```
+
+4. Route the CIDR of your private network through the tunnel using the [`cloudflare_zero_trust_tunnel_cloudflared_route`](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/zero_trust_tunnel_cloudflared_route) resource:
+
+		```tf
+		resource "cloudflare_zero_trust_tunnel_cloudflared_route" "example_tunnel_route" {
+			account_id         = var.cloudflare_account_id
+			tunnel_id          = cloudflare_zero_trust_tunnel_cloudflared.example_tunnel.id
+			network            = "10.0.0.0/8"
+			comment            = "Example tunnel route"
+		}
+		```
+
+5. Get the [token](/cloudflare-one/connections/connect-networks/configure-tunnels/remote-tunnel-permissions/) used to run the tunnel:
+
+		```tf
+		data "cloudflare_zero_trust_tunnel_cloudflared_token" "tunnel_token" {
+			account_id = var.cloudflare_account_id
+			tunnel_id = cloudflare_zero_trust_tunnel_cloudflared.example_tunnel.id
+		}
+		```
+
+		If your host machine is not managed in Terraform or you want to install the tunnel manually, you can output the token value to the CLI.
+	<Details header="Example: Output to CLI" open = {false}>
+  	1. Output the tunnel token to the Terraform state file:
+			```tf
+			output "tunnel_token" {
+				value       = data.cloudflare_zero_trust_tunnel_cloudflared_token.tunnel_token.token
+				sensitive   = true
+			}
+			```
+	2. Apply the configuration:
+			```sh
+			terraform apply
+			```
+	3. Read the tunnel token:
+			```sh
+			terraform output -raw tunnel_token
+			```
+			```sh output
+			eyJhIj...
+			```
+
+	</Details>
+
+		Alternatively, pass `data.cloudflare_zero_trust_tunnel_cloudflared_token.tunnel_token.token` directly into your host's Terraform configuration or store the token in your secret management tool.
+
+	<Details header="Example: Store in HashiCorp Vault" open = {false}>
+			```tf
+			resource "vault_generic_secret" "tunnel_token" {
+				path         = "kv/cloudflare/tunnel_token"
+
+				data_json = jsonencode({
+					"TUNNEL_TOKEN" = data.cloudflare_zero_trust_tunnel_cloudflared_token.tunnel_token.token
+				})
+			}
+			```
+	</Details>
+
+6. Install `cloudflared` on a host machine in your private network and run the tunnel:
+
+		<Render file="tunnel/install-and-run-tunnel" product="cloudflare-one" />
+
+</TabItem>
+</Tabs>
 
 All internal applications and services in this IP range are now connected to Cloudflare.
 
