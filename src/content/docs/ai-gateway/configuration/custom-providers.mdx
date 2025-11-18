@@ -1,5 +1,5 @@
 ---
-title: Account Providers
+title: Custom Providers
 pcx_content_type: configuration
 sidebar:
   order: 4
@@ -11,7 +11,7 @@ import { TabItem, Tabs } from "~/components";
 
 ## Overview
 
-Account Providers (also known as Custom Providers) allow you to integrate AI providers that are not natively supported by AI Gateway. This feature enables you to use AI Gateway's observability, caching, rate limiting, and other features with any AI provider that has an HTTPS API endpoint.
+Custom Providers allow you to integrate AI providers that are not natively supported by AI Gateway. This feature enables you to use AI Gateway's observability, caching, rate limiting, and other features with any AI provider that has an HTTPS API endpoint.
 
 ## Use cases
 
@@ -30,38 +30,38 @@ Account Providers (also known as Custom Providers) allow you to integrate AI pro
 
 ### Authentication
 
-All Account Provider API endpoints require authentication. You must use either:
-- A Cloudflare Access JWT token
-- A custom JWT token passed in the `Authorization` header
+All Custom Provider API endpoints require authentication. You need to create a Cloudflare API token with the appropriate permissions.
 
-Refer to [Authentication](/ai-gateway/configuration/authentication/) for more information on setting up gateway authentication.
+To create an API token:
 
-## Create an account provider
+1. Go to the [Cloudflare dashboard API tokens page](https://dash.cloudflare.com/?to=:account/api-tokens)
+2. Click **Create Token**
+3. Select **Custom Token** and add the following permissions:
+   - `AI Gateway - Edit`
+4. Click **Continue to summary** and then **Create Token**
+5. Copy the token - you'll use it in the `Authorization: Bearer $CLOUDFLARE_API_TOKEN` header
+
+## Create a custom provider
 
 <Tabs syncKey="dashPlusAPI">
 <TabItem label="API">
 
-To create a new account provider using the API:
+To create a new custom provider using the API:
 
-1. [Create an API token](/fundamentals/api/get-started/create-token/) with the following permissions:
-   - `AI Gateway - Read`
-   - `AI Gateway - Edit`
+1. Get your [Account ID](/fundamentals/account/find-account-and-zone-ids/) and Account Tag.
 
-2. Get your [Account ID](/fundamentals/account/find-account-and-zone-ids/) and Account Tag.
+2. Send a `POST` request to create a new custom provider:
 
-3. Send a `POST` request to create a new Account Provider:
-
-```bash title="Create Account Provider"
+```bash title="Create Custom Provider"
 curl -X POST "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{account_id}/account-providers" \
-  -H "Authorization: Bearer $CF_API_TOKEN" \
+  -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "My Custom Provider",
     "slug": "my-custom-provider",
     "base_url": "https://api.myprovider.com",
     "description": "Custom AI provider for internal models",
-    "enable": true,
-    "position": 10
+    "enable": true
   }'
 ```
 
@@ -74,7 +74,6 @@ curl -X POST "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{accou
 - `description` (string): Description of the provider
 - `link` (string): URL to provider documentation
 - `enable` (boolean): Whether the provider is active (default: `false`)
-- `position` (number): Sort order in lists (default: `0`)
 - `beta` (boolean): Mark as beta feature (default: `false`)
 - `curl_example` (string): Example cURL command for using the provider
 - `js_example` (string): Example JavaScript code for using the provider
@@ -93,9 +92,8 @@ curl -X POST "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{accou
     "base_url": "https://api.myprovider.com",
     "description": "Custom AI provider for internal models",
     "enable": true,
-    "position": 10,
     "beta": false,
-    "logo": "PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4uLi4=",
+    "logo": "Base64 encoded SVG logo",
     "link": null,
     "curl_example": null,
     "js_example": null,
@@ -106,29 +104,29 @@ curl -X POST "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{accou
 ```
 
 :::note[Auto-generated logo]
-A default SVG logo is automatically generated for each account provider. The logo is returned as a base64-encoded string.
+A default SVG logo is automatically generated for each custom provider. The logo is returned as a base64-encoded string.
 :::
 
 </TabItem>
 <TabItem label="Dashboard">
 
 :::note[Dashboard UI Coming Soon]
-The dashboard UI for managing Account Providers is currently under development. Please use the API method to create and manage custom providers.
+The dashboard UI for managing Custom Providers is currently under development. Please use the API method to create and manage custom providers.
 :::
 
 </TabItem>
 </Tabs>
 
-## List account providers
+## List custom providers
 
 <Tabs syncKey="dashPlusAPI">
 <TabItem label="API">
 
-Retrieve all account providers with optional filtering and pagination:
+Retrieve all custom providers with optional filtering and pagination:
 
 ```bash title="List all providers"
 curl "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{account_id}/account-providers" \
-  -H "Authorization: Bearer $CF_API_TOKEN"
+  -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 ```
 
 **Query parameters:**
@@ -137,20 +135,20 @@ curl "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{account_id}/a
 - `enable` (boolean): Filter by enabled status
 - `beta` (boolean): Filter by beta status
 - `search` (string): Search in id, name, or slug fields
-- `order_by` (string): Sort field and direction (default: `"position ASC NULLS LAST, name ASC"`)
+- `order_by` (string): Sort field and direction (default: `"name ASC"`)
 
 **Examples:**
 
 List only enabled providers:
 ```bash
 curl "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{account_id}/account-providers?enable=true" \
-  -H "Authorization: Bearer $CF_API_TOKEN"
+  -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 ```
 
 Search for specific providers:
 ```bash
 curl "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{account_id}/account-providers?search=custom" \
-  -H "Authorization: Bearer $CF_API_TOKEN"
+  -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 ```
 
 **Response:**
@@ -165,7 +163,6 @@ curl "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{account_id}/a
       "slug": "my-custom-provider",
       "base_url": "https://api.myprovider.com",
       "enable": true,
-      "position": 10,
       "created_at": 1700000000,
       "modified_at": 1700000000
     }
@@ -183,22 +180,22 @@ curl "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{account_id}/a
 <TabItem label="Dashboard">
 
 :::note[Dashboard UI Coming Soon]
-The dashboard UI for managing Account Providers is currently under development. Please use the API method.
+The dashboard UI for managing Custom Providers is currently under development. Please use the API method.
 :::
 
 </TabItem>
 </Tabs>
 
-## Get a specific account provider
+## Get a specific custom provider
 
 <Tabs syncKey="dashPlusAPI">
 <TabItem label="API">
 
-Retrieve details for a specific account provider by its ID:
+Retrieve details for a specific custom provider by its ID:
 
 ```bash title="Get provider by ID"
 curl "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{account_id}/account-providers/{provider_id}" \
-  -H "Authorization: Bearer $CF_API_TOKEN"
+  -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 ```
 
 **Response:**
@@ -215,9 +212,8 @@ curl "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{account_id}/a
     "base_url": "https://api.myprovider.com",
     "description": "Custom AI provider for internal models",
     "enable": true,
-    "position": 10,
     "beta": false,
-    "logo": "PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4uLi4=",
+    "logo": "Base64 encoded SVG logo",
     "link": "https://docs.myprovider.com",
     "curl_example": "curl -X POST https://api.myprovider.com/v1/chat ...",
     "js_example": "fetch('https://api.myprovider.com/v1/chat', {...})",
@@ -230,16 +226,16 @@ curl "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{account_id}/a
 </TabItem>
 </Tabs>
 
-## Update an account provider
+## Update a custom provider
 
 <Tabs syncKey="dashPlusAPI">
 <TabItem label="API">
 
-Update an existing account provider. All fields are optional - only include the fields you want to change:
+Update an existing custom provider. All fields are optional - only include the fields you want to change:
 
 ```bash title="Update provider"
 curl -X PATCH "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{account_id}/account-providers/{provider_id}" \
-  -H "Authorization: Bearer $CF_API_TOKEN" \
+  -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Updated Provider Name",
@@ -255,9 +251,7 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{acco
 - `description` (string): Provider description
 - `link` (string): Documentation URL
 - `enable` (boolean): Active status
-- `position` (number): Sort order
 - `beta` (boolean): Beta flag
-- `logo` (string): Custom logo (base64-encoded SVG)
 - `curl_example` (string): Example cURL command
 - `js_example` (string): Example JavaScript code
 
@@ -266,7 +260,7 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{acco
 Enable a provider:
 ```bash
 curl -X PATCH "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{account_id}/account-providers/{provider_id}" \
-  -H "Authorization: Bearer $CF_API_TOKEN" \
+  -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"enable": true}'
 ```
@@ -274,28 +268,28 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{acco
 Update provider URL:
 ```bash
 curl -X PATCH "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{account_id}/account-providers/{provider_id}" \
-  -H "Authorization: Bearer $CF_API_TOKEN" \
+  -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"base_url": "https://api.newprovider.com"}'
 ```
 
 :::note[Cache invalidation]
-Updates to account providers automatically invalidate any cached entries related to that provider.
+Updates to custom providers automatically invalidate any cached entries related to that provider.
 :::
 
 </TabItem>
 </Tabs>
 
-## Delete an account provider
+## Delete a custom provider
 
 <Tabs syncKey="dashPlusAPI">
 <TabItem label="API">
 
-Delete an account provider:
+Delete a custom provider:
 
 ```bash title="Delete provider"
 curl -X DELETE "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{account_id}/account-providers/{provider_id}" \
-  -H "Authorization: Bearer $CF_API_TOKEN"
+  -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 ```
 
 **Response:**
@@ -312,7 +306,7 @@ curl -X DELETE "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{acc
 ```
 
 :::caution[Impact of deletion]
-Deleting an account provider will immediately stop all requests routed through it. Ensure you have updated your applications before deleting a provider. Cache entries related to the provider will also be invalidated.
+Deleting a custom provider will immediately stop all requests routed through it. Ensure you have updated your applications before deleting a provider. Cache entries related to the provider will also be invalidated.
 :::
 
 </TabItem>
@@ -320,10 +314,10 @@ Deleting an account provider will immediately stop all requests routed through i
 
 ## Using custom providers with AI Gateway
 
-Once you've created an account provider, you can route requests through AI Gateway. When referencing your custom provider, you must prefix the slug with `custom-`.
+Once you've created a custom provider, you can route requests through AI Gateway. When referencing your custom provider, you must prefix the slug with `custom-`.
 
 :::note[Custom provider prefix]
-All account provider slugs must be prefixed with `custom-` when making requests through AI Gateway. For example, if your provider slug is `my-custom-provider`, you must use `custom-my-custom-provider` in your requests.
+All custom provider slugs must be prefixed with `custom-` when making requests through AI Gateway. For example, if your provider slug is `my-custom-provider`, you must use `custom-my-custom-provider` in your requests.
 :::
 
 ### Via Unified API
@@ -367,14 +361,14 @@ The request will be proxied to: `https://api.myprovider.com/your-endpoint`
   "errors": [
     {
       "code": 1003,
-      "message": "An account provider with this slug already exists",
+      "message": "A custom provider with this slug already exists",
       "path": ["body", "slug"]
     }
   ]
 }
 ```
 
-Each account provider slug must be unique within your account. Choose a different slug or update the existing provider.
+Each custom provider slug must be unique within your account. Choose a different slug or update the existing provider.
 
 ### 404 Not Found
 
@@ -384,7 +378,7 @@ Each account provider slug must be unique within your account. Choose a differen
   "errors": [
     {
       "code": 1004,
-      "message": "Account Provider not found"
+      "message": "Custom Provider not found"
     }
   ]
 }
@@ -420,11 +414,10 @@ The `base_url` field must be a valid HTTPS URL. HTTP URLs are not supported for 
 
 ## Limitations
 
-- Account providers are account-specific and not shared across Cloudflare accounts
+- Custom providers are account-specific and not shared across Cloudflare accounts
 - The `base_url` must use HTTPS (HTTP is not supported)
 - Provider slugs must be unique within each account
 - Cache and rate limiting settings apply globally to the provider, not per-model
-- Currently, account providers do not appear in the standard provider list in the dashboard
 
 ## Related resources
 
