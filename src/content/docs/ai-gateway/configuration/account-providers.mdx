@@ -39,13 +39,6 @@ Refer to [Authentication](/ai-gateway/configuration/authentication/) for more in
 ## Create an account provider
 
 <Tabs syncKey="dashPlusAPI">
-<TabItem label="Dashboard">
-
-:::note[Dashboard UI Coming Soon]
-The dashboard UI for managing Account Providers is currently under development. Please use the API method below to create and manage custom providers.
-:::
-
-</TabItem>
 <TabItem label="API">
 
 To create a new account provider using the API:
@@ -117,18 +110,18 @@ A default SVG logo is automatically generated for each account provider. The log
 :::
 
 </TabItem>
+<TabItem label="Dashboard">
+
+:::note[Dashboard UI Coming Soon]
+The dashboard UI for managing Account Providers is currently under development. Please use the API method to create and manage custom providers.
+:::
+
+</TabItem>
 </Tabs>
 
 ## List account providers
 
 <Tabs syncKey="dashPlusAPI">
-<TabItem label="Dashboard">
-
-:::note[Dashboard UI Coming Soon]
-The dashboard UI for managing Account Providers is currently under development. Please use the API method below.
-:::
-
-</TabItem>
 <TabItem label="API">
 
 Retrieve all account providers with optional filtering and pagination:
@@ -185,6 +178,13 @@ curl "https://api.cloudflare.com/client/v4/accounts/{account_tag}/{account_id}/a
   }
 }
 ```
+
+</TabItem>
+<TabItem label="Dashboard">
+
+:::note[Dashboard UI Coming Soon]
+The dashboard UI for managing Account Providers is currently under development. Please use the API method.
+:::
 
 </TabItem>
 </Tabs>
