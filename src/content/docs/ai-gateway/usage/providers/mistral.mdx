@@ -86,10 +86,12 @@ export default {
 	async fetch(request, env) {
 		useAIGateway({ binding: env.AI, gateway: "test-gateway" });
 
-		const unifiedAuth = ProviderAuth.unifiedBilling();
+		// Use ProviderAuth.storedKey() for BYOK, ProviderAuth.unifiedBilling() for unified billing,
+		// or pass an authorization token directly (e.g., env.MISTRAL_API_KEY)
+		const auth = ProviderAuth.storedKey();
 
 		const client = new Mistral({
-			apiKey: unifiedAuth,
+			apiKey: auth,
 		});
 
 		const response = await client.chat.create({

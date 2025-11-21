@@ -73,12 +73,14 @@ export default {
   async fetch(request, env) {
     useAIGateway({ binding: env.AI, gateway: "test-gateway" });
 
-    const unifiedAuth = ProviderAuth.unifiedBilling();
+    // Use ProviderAuth.storedKey() for BYOK, ProviderAuth.unifiedBilling() for unified billing,
+    // or pass an authorization token directly (e.g., env.IDEOGRAM_API_KEY)
+    const auth = ProviderAuth.storedKey();
 
     const response = await fetch("https://api.ideogram.ai/v1/ideogram-v3/generate", {
       method: "POST",
       headers: {
-        "Api-Key": unifiedAuth,
+        "Api-Key": auth,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({

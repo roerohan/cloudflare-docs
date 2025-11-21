@@ -69,11 +69,13 @@ export default {
 	async fetch(request, env) {
 		useAIGateway({ binding: env.AI, gateway: "test-gateway" });
 
-		const unifiedAuth = ProviderAuth.unifiedBilling();
+		// Use ProviderAuth.storedKey() for BYOK, ProviderAuth.unifiedBilling() for unified billing,
+		// or pass an authorization token directly (e.g., env.HF_API_TOKEN)
+		const auth = ProviderAuth.storedKey();
 		const model = "gpt2";
 		const baseURL = `https://api-inference.huggingface.co/models/${model}`;
 
-		const hf = new HfInferenceEndpoint(baseURL, unifiedAuth);
+		const hf = new HfInferenceEndpoint(baseURL, auth);
 
 		return Response.json({ configured: true });
 	},

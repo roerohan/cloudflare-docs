@@ -39,10 +39,12 @@ export default {
 	async fetch(request, env) {
 		useAIGateway({ binding: env.AI, gateway: "test-gateway" });
 
-		const unifiedAuth = ProviderAuth.unifiedBilling();
+		// Use ProviderAuth.storedKey() for BYOK, ProviderAuth.unifiedBilling() for unified billing,
+		// or pass an authorization token directly (e.g., env.OPENAI_API_KEY)
+		const auth = ProviderAuth.storedKey();
 
 		const openai = createOpenAI({
-			apiKey: unifiedAuth,
+			apiKey: auth,
 		});
 
 		return Response.json({ configured: true });
@@ -79,10 +81,12 @@ export default {
 	async fetch(request, env) {
 		useAIGateway({ binding: env.AI, gateway: "test-gateway" });
 
-		const unifiedAuth = ProviderAuth.unifiedBilling();
+		// Use ProviderAuth.storedKey() for BYOK, ProviderAuth.unifiedBilling() for unified billing,
+		// or pass an authorization token directly (e.g., env.ANTHROPIC_API_KEY)
+		const auth = ProviderAuth.storedKey();
 
 		const anthropic = createAnthropic({
-			apiKey: unifiedAuth,
+			apiKey: auth,
 		});
 
 		return Response.json({ configured: true });
@@ -119,10 +123,12 @@ export default {
 	async fetch(request, env) {
 		useAIGateway({ binding: env.AI, gateway: "test-gateway" });
 
-		const unifiedAuth = ProviderAuth.unifiedBilling();
+		// Use ProviderAuth.storedKey() for BYOK, ProviderAuth.unifiedBilling() for unified billing,
+		// or pass an authorization token directly (e.g., env.GOOGLE_AI_STUDIO_API_KEY)
+		const auth = ProviderAuth.storedKey();
 
 		const google = createGoogleGenerativeAI({
-			apiKey: unifiedAuth,
+			apiKey: auth,
 		});
 
 		return Response.json({ configured: true });

@@ -85,10 +85,12 @@ export default {
 	async fetch(request, env) {
 		useAIGateway({ binding: env.AI, gateway: "test-gateway" });
 
-		const unifiedAuth = ProviderAuth.unifiedBilling();
+		// Use ProviderAuth.storedKey() for BYOK, ProviderAuth.unifiedBilling() for unified billing,
+		// or pass an authorization token directly (e.g., env.GROQ_API_KEY)
+		const auth = ProviderAuth.storedKey();
 
 		const groq = new Groq({
-			apiKey: unifiedAuth,
+			apiKey: auth,
 		});
 
 		const messages = [{ role: "user", content: "What is Cloudflare?" }];

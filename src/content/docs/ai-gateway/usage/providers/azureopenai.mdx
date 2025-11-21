@@ -82,16 +82,18 @@ export default {
 	async fetch(request, env) {
 		useAIGateway({ binding: env.AI, gateway: "test-gateway" });
 
-		const unifiedAuth = ProviderAuth.unifiedBilling();
+		// Use ProviderAuth.storedKey() for BYOK, ProviderAuth.unifiedBilling() for unified billing,
+		// or pass an authorization token directly (e.g., env.AZURE_OPENAI_API_KEY)
+		const auth = ProviderAuth.storedKey();
 		const resource = "xxx";
 		const model = "xxx";
 		const apiVersion = "xxx";
 
 		const azure_openai = new OpenAI({
-			apiKey: unifiedAuth,
+			apiKey: auth,
 			baseURL: `https://${resource}.openai.azure.com/openai/deployments/${model}`,
 			defaultQuery: { "api-version": apiVersion },
-			defaultHeaders: { "api-key": unifiedAuth },
+			defaultHeaders: { "api-key": auth },
 		});
 
 		return Response.json({ configured: true });
