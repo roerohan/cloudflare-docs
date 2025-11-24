@@ -88,8 +88,7 @@ export default {
 	async fetch(request, env) {
 		useAIGateway({ binding: env.AI, gateway: "test-gateway" });
 
-		// Use ProviderAuth.storedKey() for BYOK, ProviderAuth.unifiedBilling() for unified billing,
-		// or pass an authorization token directly (e.g., env.PERPLEXITY_API_KEY)
+		// Use ProviderAuth.storedKey() for BYOK or pass an authorization token directly (e.g., env.PERPLEXITY_API_KEY)
 		const auth = ProviderAuth.storedKey();
 
 		const perplexity = new OpenAI({

@@ -153,8 +153,7 @@ export default {
   async fetch(request, env) {
     useAIGateway({ binding: env.AI, gateway: "test-gateway" });
 
-    // Use ProviderAuth.storedKey() for BYOK, ProviderAuth.unifiedBilling() for unified billing,
-    // or pass a service account JSON directly (e.g., env.VERTEX_SERVICE_ACCOUNT_JSON)
+    // Use ProviderAuth.storedKey() for BYOK or pass a service account JSON directly (e.g., env.VERTEX_SERVICE_ACCOUNT_JSON)
     const auth = ProviderAuth.storedKey();
 
     const client = new OpenAI({
@@ -272,8 +271,7 @@ export default {
   async fetch(request, env) {
     useAIGateway({ binding: env.AI, gateway: "test-gateway" });
 
-    // Use ProviderAuth.storedKey() for BYOK, ProviderAuth.unifiedBilling() for unified billing,
-    // or pass a service account JSON directly (e.g., env.VERTEX_SERVICE_ACCOUNT_JSON)
+    // Use ProviderAuth.storedKey() for BYOK or pass a service account JSON directly (e.g., env.VERTEX_SERVICE_ACCOUNT_JSON)
     const auth = ProviderAuth.storedKey();
 
     const projectName = "{project_name}";
