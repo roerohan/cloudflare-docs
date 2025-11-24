@@ -53,7 +53,7 @@ To create a new custom provider using the API:
 2. Send a `POST` request to create a new custom provider:
 
 ```bash title="Create Custom Provider"
-curl -X POST "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/custom-providers" \
+curl -X POST "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/ai-gateway/custom-providers" \
   -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -132,7 +132,7 @@ To create a new custom provider using the dashboard:
 Retrieve all custom providers with optional filtering and pagination:
 
 ```bash title="List all providers"
-curl "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/custom-providers" \
+curl "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/ai-gateway/custom-providers" \
   -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 ```
 
@@ -148,13 +148,13 @@ curl "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/custom-providers
 
 List only enabled providers:
 ```bash
-curl "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/custom-providers?enable=true" \
+curl "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/ai-gateway/custom-providers?enable=true" \
   -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 ```
 
 Search for specific providers:
 ```bash
-curl "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/custom-providers?search=custom" \
+curl "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/ai-gateway/custom-providers?search=custom" \
   -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 ```
 
@@ -203,7 +203,7 @@ To view all your custom providers:
 Retrieve details for a specific custom provider by its ID:
 
 ```bash title="Get provider by ID"
-curl "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/custom-providers/{provider_id}" \
+curl "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/ai-gateway/custom-providers/{provider_id}" \
   -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 ```
 
@@ -243,7 +243,7 @@ curl "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/custom-providers
 Update an existing custom provider. All fields are optional - only include the fields you want to change:
 
 ```bash title="Update provider"
-curl -X PATCH "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/custom-providers/{provider_id}" \
+curl -X PATCH "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/ai-gateway/custom-providers/{provider_id}" \
   -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -268,7 +268,7 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/custom-
 
 Enable a provider:
 ```bash
-curl -X PATCH "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/custom-providers/{provider_id}" \
+curl -X PATCH "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/ai-gateway/custom-providers/{provider_id}" \
   -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"enable": true}'
@@ -276,7 +276,7 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/custom-
 
 Update provider URL:
 ```bash
-curl -X PATCH "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/custom-providers/{provider_id}" \
+curl -X PATCH "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/ai-gateway/custom-providers/{provider_id}" \
   -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"base_url": "https://api.newprovider.com"}'
@@ -308,7 +308,7 @@ To update an existing custom provider:
 Delete a custom provider:
 
 ```bash title="Delete provider"
-curl -X DELETE "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/custom-providers/{provider_id}" \
+curl -X DELETE "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/ai-gateway/custom-providers/{provider_id}" \
   -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 ```
 
